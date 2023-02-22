@@ -1,4 +1,3 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Spin } from 'antd';
 import { useEffect, useState } from 'react'
 
