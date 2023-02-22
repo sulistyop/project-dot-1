@@ -451,7 +451,7 @@
   dependencies:
     "color-convert" "^1.9.0"
 
-
+"antd@^5.2.2":
   "integrity" "sha512-IHuMyGvgI+pPmoZNJFfhVykb0eW6+iO/39/9qPE0ub9gKAnI4vaK+hA5li6aX+mjM/EqgckdWgLpaIP98kGrvw=="
   "resolved" "https://registry.npmjs.org/antd/-/antd-5.2.2.tgz"
   "version" "5.2.2"
