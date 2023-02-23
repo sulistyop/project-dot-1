@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { supabase } from "../../config/supabase"
 import {UserOutlined} from "@ant-design/icons"
 
+
 const leftItems = [
     {
         label: <NavLink to="/">Home</NavLink>,
@@ -32,7 +33,7 @@ const rightItems = [
 ]
 
 
-const { data: { user } } = await supabase.auth.getUser()
+
 
 
 export const TopNavigation = () =>{
@@ -63,12 +64,7 @@ export const TopNavigation = () =>{
 
     //Dropdown Profile item
     const items = [
-        {
-            label: user.email,
-            style: {
-              color: '#fca311'
-            }
-        },
+      
         {
           label: <div className="text-black flex flex-col items-center" ><Button className="text-black" onClick={handleLogout}>Logout</Button></div>,
           style: {
