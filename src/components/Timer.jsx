@@ -1,4 +1,3 @@
-import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Card, Spin } from 'antd';
 import { useEffect, useState } from 'react'
 
@@ -35,9 +34,9 @@ export const Timer = () =>{
   },[start])
 
   return(
-    <div className='flex flex-col items-center p-5'>
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <h1 className='text-white p-2'>Tugas 1 Timer </h1>
+    <div className='flex flex-col items-center m-5'>
+      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-lg xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <h1 className='text-white flex flex-col items-center'>Tugas 1 Timer </h1>
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8 flex flex-col items-center justify-center">
         <div className='text-7xl text-white'>{count}</div>
         <div className='flex'>
