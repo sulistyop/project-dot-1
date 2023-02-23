@@ -2,16 +2,14 @@ import { Timer } from './components/Timer'
 import { Ref } from './components/Ref'
 import { Login } from './components/login'
 import { AuthContext } from './context/AuthContext'
-import { useContext, useState } from 'react'
+import {  useState } from 'react'
 
 export default function App () {
    const [auth, setAuth] = useState({email:'',password:''})
-   console.log(auth)
+
     return (
       <div className="bg-gray-50 dark:bg-gray-900 w-full h-full">
         <AuthContext.Provider value={{auth, setAuth}}>
-        
-          
           {auth.email ?
               <div className='flex flex-col items-center p-5'>
                   <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -21,11 +19,7 @@ export default function App () {
                     </div>
                   </div>
               </div>
-          
-            
             : ''}
-        
-        
           {!auth.email ? <Login/> :''}
           {auth.email ? <Timer/> :''}
           {auth.email ? <Ref/> :''}
