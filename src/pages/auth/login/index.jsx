@@ -54,7 +54,7 @@ const FormLogin = () => {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
+              //onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
               <Form.Item
