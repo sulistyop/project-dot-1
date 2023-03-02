@@ -1,56 +1,44 @@
-import { App, Button, Checkbox, Form, Input, Spin } from 'antd';
+import { Card, Button, Checkbox, Form, Input, Spin } from 'antd';
 import AppLayout from '../../../components/layouts/app.layouts';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../../config/supabase';
 import { useState } from 'react';
 
-
-const FormLogin = () =>{
+const FormLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
-
-
   const onFinish = async (values) => {
     setLoading(true)
-    const {data, error} = await supabase.auth.signInWithPassword({
-      email:values?.email,
-      password:values.password
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: values?.email,
+      password: values.password
     })
 
-      setTimeout(()=>{
-        try {
-          if(data){
-            navigate('/')
-          }
-          if (error) throw error
-            alert('Login Berhasil !')      
-        } catch (error) {
-            alert(error.error_description || error.message)
-            navigate('/auth/login')
-        } finally {
-          setLoading(false)
-          
+    setTimeout(() => {
+      try {
+        if (data) {
+          navigate('/')
         }
-      },1000)
-     
-  }
+        if (error) throw error
+        alert('Login Berhasil !')
+      } catch (error) {
+        alert(error.error_description || error.message)
+        navigate('/auth/login')
+      } finally {
+        setLoading(false)
 
-
-  
-  const onFinishFailed = (errorInfo) => {
-
+      }
+    }, 1000)
   }
 
   return (
     <AppLayout>
-      
-        <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto  md:h-screen lg:py-0'>
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-              Login Page
-            </h1>
-            {loading ? (
-            <Spin></Spin>
-          ) :
+
+      <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto  md:h-screen lg:py-0'>
+        {loading ? (
+          <Spin></Spin>
+        ) :
+          <Card title={<h1 className='text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black'>Login Page</h1>} s>
             <Form
               name="basic"
               labelCol={{
@@ -60,7 +48,7 @@ const FormLogin = () =>{
                 span: 16,
               }}
               style={{
-                maxWidth: 600,
+                maxWidth: 900,
               }}
               initialValues={{
                 remember: true,
@@ -103,7 +91,7 @@ const FormLogin = () =>{
                   span: 16,
                 }}
               >
-              <Checkbox>Remember me</Checkbox>
+                <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
               <Form.Item
@@ -115,16 +103,17 @@ const FormLogin = () =>{
                 <Button className='bg-blue-600' type="primary" htmlType="submit">
                   Submit
                 </Button>
-              
+
               </Form.Item>
 
             </Form>
-            }
+          </Card>
+        }
 
-        </div>
-    </AppLayout>
-);
-} 
+      </div>
+    </AppLayout >
+  );
+}
 
 
 export default FormLogin;
