@@ -3,10 +3,13 @@ import AppLayout from '../../../components/layouts/app.layouts';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../../config/supabase';
 import { useState } from 'react';
+// import { AuthContext } from '../../../context/AuthContext';
+
 
 const FormLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
+
   const onFinish = async (values) => {
     setLoading(true)
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -17,8 +20,10 @@ const FormLogin = () => {
     setTimeout(() => {
       try {
         if (data) {
+
           navigate('/')
         }
+
         if (error) throw error
 
       } catch (error) {
@@ -26,19 +31,22 @@ const FormLogin = () => {
         navigate('/auth/login')
       } finally {
         setLoading(false)
-
       }
     }, 1000)
   }
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
     <AppLayout>
 
       <div className='flex flex-col items-center justify-center px-6 py-8 mx-auto  md:h-screen lg:py-0'>
         {loading ? (
-          <Spin></Spin>
+          <Spin />
         ) :
-          <Card title={<h1 className='text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black'>Login Page</h1>} s>
+          <Card title={<h1 className='text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black'>Login Page</h1>} >
             <Form
               name="basic"
               labelCol={{
@@ -54,7 +62,7 @@ const FormLogin = () => {
                 remember: true,
               }}
               onFinish={onFinish}
-              //onFinishFailed={onFinishFailed}
+              onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
               <Form.Item

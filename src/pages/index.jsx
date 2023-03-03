@@ -1,20 +1,21 @@
 import AppLayout from '../components/layouts/app.layouts'
 import { supabase } from '../config/supabase'
 import { useEffect, useState } from 'react'
-import { Button } from 'antd'
+import { Button, List, Avatar, } from 'antd'
 import { useQuestionsAmount } from '../modules/soal/hooks'
-import { Spin } from 'antd'
+import { Spin, Card } from 'antd'
 import { Quiz } from '../components/Quiz'
-
 
 const MainPage = () => {
   const [session, setSession] = useState(null)
   const [quiz, setQuiz] = useState(null)
   const { data, isLoading, error } = useQuestionsAmount({ amount: 10 })
   const [rank, setRank] = useState(null)
+
   const handleStartQuiz = (e) => {
     e.preventDefault()
     setQuiz(true)
+    setRank(null)
   }
 
   const ShowQuestion = () => {
@@ -43,23 +44,38 @@ const MainPage = () => {
     const { data, error } = await supabase
       .from('questions')
       .select('*')
+      .order('score', { ascending: false })
+      .range(0, 4)
     setRank(data)
-
   }
-
   return (
     <AppLayout>
-      <div className='flex flex-col items-center p-2'>
-        <div className="flex flex-col items-center justify-center p-5 bg-white rounded-md">
-          <h1>Hasil Quiz</h1>
-          {rank && !isLoading && <>  {rank.map((lesson, i) => (
-            <a key={i} className='text-black'>{i + 1} .{lesson.user_name} Score:{lesson.score} Correct : {lesson.correct} In Correct : {lesson.incorrect} </a>
-          ))}</>}
+      <div className={'p-2'} style={{ background: '#ECECEC' }}>
+        <div className={'text-center '}>
+          {isLoading && <Spin />}
         </div>
+        {rank && !isLoading &&
+          <Card title="Hasil Quiz" bordered={false}>
+            <List
+              itemLayout="horizontal"
+              dataSource={rank}
+              renderItem={(item, index) => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={<Avatar src={`https://joesch.moe/api/v1/random?key=${index}`} />}
+                    title={<a href="#">{item.user_name}</a>}
+                    description={'Score :' + item.score}
+                  />
+                </List.Item>
+              )}
+            />
+          </Card>}
+      </div>
+      <div className='flex flex-col items-center p-2'>
+
         {session ?
           <>
             {!quiz ?
-
               <Button onClick={handleStartQuiz} className='bg-blue-600 w-1/2 mt-2' type="primary" htmlType="submit">
                 Mulai Quiz
               </Button>
@@ -67,7 +83,7 @@ const MainPage = () => {
             }
           </>
           :
-          <h1 className='text-white'>Login Untuk Memulai Quiz</h1>
+          <h1 className='text-black py-5 text-2xl'>Login Untuk Memulai Quiz</h1>
         }
       </div>
     </AppLayout >

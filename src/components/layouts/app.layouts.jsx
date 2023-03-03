@@ -15,7 +15,7 @@ const headerStyle = {
 const contentStyle = {
     textAlign: 'start',
     minHeight: 120,
-    backgroundColor: '#14213d'
+    // backgroundColor: '#14213d'
 }
 
 const footerStyle = {

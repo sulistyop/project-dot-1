@@ -6,6 +6,7 @@ export const useQuestionsAmount = ({ amount }) => {
     return useQuery({
         queryKey: ['questions-amount', amount],
         queryFn: () => questionsAmount(amount),
+        refetchOnWindowFocus: false, // default: true
     })
 }
 
