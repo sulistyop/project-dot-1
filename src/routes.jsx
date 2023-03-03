@@ -8,18 +8,18 @@ import RegisterPage from './pages/auth/register/index'
 
 const Router = createBrowserRouter([
     {
-        path:'/',
-        element:<MainPage/>
+        path: '/',
+        element: <MainPage />
     },
     {
-        path:'/auth',
-        children:[
+        path: '/auth',
+        children: [
             {
-                path:'login',
-                element:<LoginPage/>,
-                loader: async () =>{
-                    const {data, error} = await supabase.auth.getSession()
-                    if(data.session){
+                path: 'login',
+                element: <LoginPage />,
+                loader: async () => {
+                    const { data, error } = await supabase.auth.getSession()
+                    if (data.session) {
                         return redirect('/')
                     }
 
@@ -27,19 +27,19 @@ const Router = createBrowserRouter([
                 }
             },
             {
-                path:'register',
-                element:<RegisterPage/>,
-                loader: async () =>{
-                    const {data, error} = await supabase.auth.getSession()
-                    if(data.session){
+                path: 'register',
+                element: <RegisterPage />,
+                loader: async () => {
+                    const { data, error } = await supabase.auth.getSession()
+                    if (data.session) {
                         return redirect('/')
                     }
 
                     return null
                 }
             }
-          
-        ]   
+
+        ]
     }
 ])
 

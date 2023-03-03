@@ -53,7 +53,7 @@ const MainPage = () => {
         <div className="flex flex-col items-center justify-center p-5 bg-white rounded-md">
           <h1>Hasil Quiz</h1>
           {data && !isLoading && <>  {rank.map((lesson, i) => (
-            <a className='text-black'>{i + 1} .{lesson.user_name} Score:{lesson.score} Correct : {lesson.correct} In Correct : {lesson.incorrect} </a>
+            <a key={i} className='text-black'>{i + 1} .{lesson.user_name} Score:{lesson.score} Correct : {lesson.correct} In Correct : {lesson.incorrect} </a>
           ))}</>}
         </div>
         {session ?
