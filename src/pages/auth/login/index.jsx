@@ -20,7 +20,7 @@ const FormLogin = () => {
           navigate('/')
         }
         if (error) throw error
-        alert('Login Berhasil !')
+
       } catch (error) {
         alert(error.error_description || error.message)
         navigate('/auth/login')
