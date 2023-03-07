@@ -3,7 +3,7 @@ import { supabase } from '../config/supabase'
 import { useEffect, useState } from 'react'
 import { Button, List, Avatar, } from 'antd'
 import { useQuestionsAmount } from '../modules/soal/hooks'
-import { Spin, Card } from 'antd'
+import { Spin, Card, Switch } from 'antd'
 import { Quiz } from '../components/Quiz'
 
 const MainPage = () => {
@@ -28,7 +28,6 @@ const MainPage = () => {
   }
 
   useEffect(() => {
-
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
     })
@@ -37,8 +36,7 @@ const MainPage = () => {
       setSession(session)
     })
     getDataAnswers()
-  }, []
-  )
+  }, [])
 
   const getDataAnswers = async () => {
     const { data, error } = await supabase
@@ -55,21 +53,24 @@ const MainPage = () => {
           {isLoading && <Spin />}
         </div>
         {rank && !isLoading &&
-          <Card title="Hasil Quiz" bordered={false}>
-            <List
-              itemLayout="horizontal"
-              dataSource={rank}
-              renderItem={(item, index) => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Avatar src={`https://joesch.moe/api/v1/random?key=${index}`} />}
-                    title={<a href="#">{item.user_name}</a>}
-                    description={'Score :' + item.score}
-                  />
-                </List.Item>
-              )}
-            />
-          </Card>}
+          <>
+            <Card title="Rank" bordered={false}>
+              <List
+                itemLayout="horizontal"
+                dataSource={rank}
+                renderItem={(item, index) => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={`https://joesch.moe/api/v1/random?key=${index}`} />}
+                      title={<a href="#">{item.user_name}</a>}
+                      description={'Score :' + item.score}
+                    />
+                  </List.Item>
+                )}
+              />
+            </Card>
+          </>
+        }
       </div>
       <div className='flex flex-col items-center p-2'>
         {session ?
